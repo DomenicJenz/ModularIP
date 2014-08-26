@@ -1,0 +1,15 @@
+/CMakeFiles/
+/cmake_install.cmake
+/CMakeCache.txt
+/Makefile
+
+.project
+
+.cproject
+
+modularIP
+/build/
+
+.settings/language.settings.xml
+
+.settings/org.eclipse.core.resources.prefs
