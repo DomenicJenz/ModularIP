@@ -9,6 +9,7 @@
 #define _SLOTS_H_
 
 #include <tuple>
+#include <string>
 
 namespace ModularIP {
 namespace Base {
@@ -33,7 +34,7 @@ public:
 		std::get<Index>(_inputs) = newValue;
 	}
 
-	constexpr size_t numberOfInputs ()
+	constexpr size_t numberOfInputs () const
 	{
 		return sizeof...(Types);
 	}
