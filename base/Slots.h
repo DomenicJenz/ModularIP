@@ -17,6 +17,9 @@ template<typename... Types>
 class InputSlots
 {
 public:
+	virtual ~InputSlots() = default;
+
+	virtual std::string inputDescription (size_t index) const = 0;
 
 	template<size_t Index>
 	const typename std::tuple_element<Index, std::tuple<Types...>>::type& getInput ()
@@ -30,6 +33,11 @@ public:
 		std::get<Index>(_inputs) = newValue;
 	}
 
+	constexpr size_t numberOfInputs ()
+	{
+		return sizeof...(Types);
+	}
+
 private:
 	std::tuple<Types...> _inputs;
 };
@@ -38,6 +46,8 @@ template<typename... Types>
 class OutputSlots
 {
 public:
+	virtual ~OutputSlots () = default;
+	virtual std::string outputDescription (size_t index) const = 0;
 
 	template<size_t Index>
 	const typename std::tuple_element<Index, std::tuple<Types...>>::type& getOutput ()
@@ -49,6 +59,18 @@ public:
 	void setOutput (const typename std::tuple_element<Index, std::tuple<Types...>>::type& newValue)
 	{
 		std::get<Index>(_outputs) = newValue;
+	}
+
+	constexpr std::size_t numberOfOutputs () const
+	{
+		return sizeof...(Types);
+	}
+
+protected:
+	template<size_t Index>
+	typename std::tuple_element<Index, std::tuple<Types...>>::type& getOutputRef ()
+	{
+		return std::get<Index>(_outputs);
 	}
 
 private:
