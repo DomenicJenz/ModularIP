@@ -9,21 +9,25 @@
 #define _READFILEMODULE_H_
 
 #include "Module.h"
-#include "Slots.h"
+#include "base/Slots.h"
 #include <string>
+#include "base/MemoryBuffer.h"
 
 namespace ModularIP {
 namespace Modules {
 
 using namespace ModularIP::Base;
 
-class ReadFileModule : public Module<InputSlots<int, int>, OutputSlots<int>>
+class ReadFileModule : public Module<InputSlots<std::string>, OutputSlots<MemoryBuffer>>
 {
 public:
 	ReadFileModule () = default;
 	virtual ~ReadFileModule () = default;
 
-	ModuleStatus execute ();
+	std::string inputDescription (size_t index) const override;
+	std::string outputDescription (size_t index) const override;
+
+	ModuleStatus execute () override;
 };
 
 } /* namespace Modules */
